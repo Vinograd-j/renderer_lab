@@ -30,13 +30,13 @@ void Image::SavePPM(const std::string& fileName) const
 
     file << "P6\n" << _width << " " << _height << "\n255\n";
 
-    for (int i = 0; i < _height; i++)
+    for (int y = 0; y < _height; y++)
     {
-        for (int j = 0; j < _width; j++)
+        for (int x = 0; x < _width; x++)
         {
-            auto ir = static_cast<unsigned char>(255.999 * _pixels[i][j].r);
-            auto ig = static_cast<unsigned char>(255.999 * _pixels[i][j].g);
-            auto ib = static_cast<unsigned char>(255.999 * _pixels[i][j].b);
+            auto ir = static_cast<unsigned char>(255.999 * _pixels[y][x].r);
+            auto ig = static_cast<unsigned char>(255.999 * _pixels[y][x].g);
+            auto ib = static_cast<unsigned char>(255.999 * _pixels[y][x].b);
 
             file.write(reinterpret_cast<char*>(&ir), 1);
             file.write(reinterpret_cast<char*>(&ig), 1);

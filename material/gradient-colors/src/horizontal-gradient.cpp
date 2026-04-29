@@ -1,0 +1,18 @@
+#include "../include/horizontal-gradient.h"
+
+#include <algorithm>
+#include <cmath>
+
+#include "../../../math/include/vector2.h"
+
+Pixel HorizontalGradient::GetColor(int x, int y) const
+{
+    double t = static_cast<double>(y) / (GetAxisSize() - 1);
+    t = std::pow(t, 2);
+
+    return Pixel(
+        GetStartColor().r * (1 - t) + GetEndColor().r * t,
+        GetStartColor().g * (1 - t) + GetEndColor().g * t,
+        GetStartColor().b * (1 - t) + GetEndColor().b * t
+    );
+}

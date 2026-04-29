@@ -7,12 +7,25 @@ set(CMAKE_CXX_STANDARD 20)
 find_package(glm REQUIRED)
 
 add_executable(renderer_lab main.cpp
-        math/vector3.cpp
-        math/vector3.h
-        math/vector2.h
-        math/vector2.cpp
+        math/src/vector3.cpp
+        math/include/vector3.h
+        math/include/vector2.h
+        math/src/vector2.cpp
         Image.cpp
         Image.h
+        shapes/src/sphere.cpp
+        shapes/include/sphere.h
+        shapes/src/drawable.cpp
+        shapes/include/drawable.h
+        material/gradient-colors/include/color-provider.h
+        material/gradient-colors/include/solid-color.h
+        material/gradient-colors/include/gradient-color.h
+        material/gradient-colors/src/vertical-gradient.cpp
+        material/gradient-colors/include/vertical-gradient.h
+        material/gradient-colors/src/horizontal-gradient.cpp
+        material/gradient-colors/include/horizontal-gradient.h
+        shapes/src/background.cpp
+        shapes/include/background.h
 )
 
 target_link_libraries(renderer_lab PRIVATE glm::glm)

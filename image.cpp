@@ -19,7 +19,7 @@ Image::~Image()
     delete[] _pixels;
 }
 
-void Image::SetPixel(int y, int x, const Pixel& color) const
+void Image::SetPixel(int x, int y, const Pixel& color) const
 {
     _pixels[y][x] = color;
 }

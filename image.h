@@ -29,4 +29,10 @@ public:
 
     void SavePPM(const std::string& fileName) const;
 
+public:
+
+    int GetWidth() const { return _width; }
+
+    int GetHeight() const { return _height; }
+
 };

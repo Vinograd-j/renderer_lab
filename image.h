@@ -25,7 +25,7 @@ public:
 
 public:
 
-    void SetPixel(int y, int x, const Pixel& color) const;
+    void SetPixel(int x, int y, const Pixel& color) const;
 
     void SavePPM(const std::string& fileName) const;
 

@@ -1,13 +1,12 @@
 #pragma once
 #include "gradient-color.h"
-#include "../../../math/include/vector2.h"
 
 class HorizontalGradient final :  public GradientColor
 {
 
 public:
 
-    explicit HorizontalGradient(const Pixel& start, const Pixel& end, int width, int radius, const Vector2& center) : GradientColor(start, end, width) {}
+    explicit HorizontalGradient(const Pixel& start, const Pixel& end, int width) : GradientColor(start, end, width) {}
 
 public:
 

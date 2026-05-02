@@ -13,9 +13,8 @@ add_executable(renderer_lab main.cpp
         math/src/vector2.cpp
         Image.cpp
         Image.h
-        shapes/src/sphere.cpp
-        shapes/include/sphere.h
-        shapes/src/drawable.cpp
+        shapes/src/circle.cpp
+        shapes/include/circle.h
         shapes/include/drawable.h
         material/gradient-colors/include/color-provider.h
         material/gradient-colors/include/solid-color.h

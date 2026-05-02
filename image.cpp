@@ -21,6 +21,9 @@ Image::~Image()
 
 void Image::SetPixel(int x, int y, const Pixel& color) const
 {
+    if (x < 0 || x >= _width || y < 0 || y >= _height)
+        return;
+
     _pixels[y][x] = color;
 }
 

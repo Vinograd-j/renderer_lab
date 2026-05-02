@@ -1,9 +1,6 @@
 #include "../include/horizontal-gradient.h"
 
-#include <algorithm>
 #include <cmath>
-
-#include "../../../math/include/vector2.h"
 
 Pixel HorizontalGradient::GetColor(int x, int y) const
 {

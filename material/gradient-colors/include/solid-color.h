@@ -1,7 +1,7 @@
 #pragma once
 #include "color-provider.h"
 
-class SolidColor : public ColorProvider
+class SolidColor final : public ColorProvider
 {
 
 private:
@@ -14,6 +14,6 @@ public:
 
 public:
 
-    Pixel GetColor(int, int) const override { return _color; }
+    Pixel GetColor(float, float) const override { return _color; }
 
 };

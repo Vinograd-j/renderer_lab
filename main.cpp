@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include "image.h"
+#include "material/gradient-colors/include/radial-gradient.h"
 #include "material/gradient-colors/include/horizontal-gradient.h"
 #include "material/gradient-colors/include/vertical-gradient.h"
 #include "shapes/include/background.h"
@@ -16,8 +17,8 @@ int main()
 
     Vector2 center(0.0, 0.0);
 
-    HorizontalGradient horizontal(Pixel(0.4, 0.85, 0.1), Pixel(0.8, 0.1, 0.43), imageWidth);
-    Circle circle(1, center, &horizontal);
+    RadialGradient radial(Pixel(0.42, 0.85, 0.13), Pixel(0.81, 0.18, 0.4352), center, 1.0);
+    Circle circle(1, center, &radial);
 
     VerticalGradient vertical(Pixel(0.917, 0.75, 0.2), Pixel(0.7851, 0.203, 0.9179), imageHeight);
     Background background(&vertical);

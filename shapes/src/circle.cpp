@@ -12,7 +12,7 @@ void Circle::Draw(const Image& image) const
             float ny = 2.0f * static_cast<float>(y) / static_cast<float>(image.GetHeight()) - 1.0f;
 
             if ((_center - Vector2(nx, ny)).LengthSquared() < _radius * _radius)
-                image.SetPixel(x, y, _colorProvider->GetColor(x, y));
+                image.SetPixel(x, y, _colorProvider->GetColor(nx, ny));
         }
     }
 }

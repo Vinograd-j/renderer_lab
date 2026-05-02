@@ -2,10 +2,13 @@
 
 #include <cmath>
 
-Pixel VerticalGradient::GetColor(int x, int y) const
+Pixel VerticalGradient::GetColor(float nx, float ny) const
 {
-    double t = static_cast<double>(y) / (GetAxisSize() - 1);
-    t = std::pow(t, 2);
+    double t = static_cast<double>(ny) / (_imageHeight - 1);
+
+    t = t * t * (3.0 - 2.0 * t);
+
+    t = std::pow(t, 1.6);
 
     return Pixel(
         GetStartColor().r * (1 - t) + GetEndColor().r * t,

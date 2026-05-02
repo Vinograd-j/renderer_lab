@@ -4,9 +4,7 @@
 
 Pixel VerticalGradient::GetColor(float nx, float ny) const
 {
-    double t = static_cast<double>(ny) / (_imageHeight - 1);
-
-    t = t * t * (3.0 - 2.0 * t);
+    double t = (ny + 1.0) * 0.5;
 
     t = std::pow(t, 1.6);
 

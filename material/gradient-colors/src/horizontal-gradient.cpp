@@ -4,7 +4,8 @@
 
 Pixel HorizontalGradient::GetColor(float nx, float ny) const
 {
-    double t = static_cast<double>(ny) / (_imageWidth - 1);
+    double t = (nx + 1.0) * 0.5;
+
     t = std::pow(t, 2);
 
     return Pixel(

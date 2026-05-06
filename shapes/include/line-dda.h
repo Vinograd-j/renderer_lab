@@ -1,0 +1,29 @@
+#pragma once
+#include "drawable.h"
+#include "../../material/gradient-colors/include/color-provider.h"
+#include "../../math/include/vector2.h"
+
+class LineDDA : Drawable
+{
+
+private:
+
+    int _thickness;
+
+    Vector2 _startPoint;
+
+    Vector2 _endPoint;
+
+
+    const ColorProvider* _colorProvider;
+
+public:
+
+    explicit LineDDA(int thickness, const Vector2& start_point, const Vector2& end_point, const ColorProvider* colorProvider) : _thickness(thickness), _startPoint(start_point), _endPoint(end_point),
+    _colorProvider(colorProvider)   {}
+
+public:
+
+    void Draw(const Image& image) const override;
+
+};

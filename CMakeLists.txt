@@ -27,6 +27,8 @@ add_executable(renderer_lab main.cpp
         shapes/include/background.h
         material/gradient-colors/src/radial-gradient.cpp
         material/gradient-colors/include/radial-gradient.h
+        shapes/src/line-dda.cpp
+        shapes/include/line-dda.h
 )
 
 target_link_libraries(renderer_lab PRIVATE glm::glm)

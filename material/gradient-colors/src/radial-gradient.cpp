@@ -1,5 +1,7 @@
 #include "../include/radial-gradient.h"
 
+#include <cmath>
+
 Pixel RadialGradient::GetColor(float nx, float ny) const
 {
     double dx = nx - _center.x();

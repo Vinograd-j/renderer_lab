@@ -7,6 +7,7 @@
 #include "material/gradient-colors/include/vertical-gradient.h"
 #include "shapes/include/background.h"
 #include "shapes/include/circle.h"
+#include "shapes/include/line-dda.h"
 
 int main()
 {
@@ -23,9 +24,12 @@ int main()
     VerticalGradient vertical(Pixel(0.917, 0.75, 0.2), Pixel(0.7851, 0.203, 0.9179), imageHeight);
     Background background(&vertical);
 
+    HorizontalGradient horizontal(Pixel(0, 1, 0), Pixel(0, 0, 1), imageHeight);
+    LineDDA lineDDA(15, Vector2(-1, -1), Vector2(1, 1), &horizontal);
 
     background.Draw(image);
-    circle.Draw(image);
+    //8circle.Draw(image);
+    lineDDA.Draw(image);
 
     image.SavePPM("image");
 }

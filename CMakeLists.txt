@@ -33,6 +33,7 @@ add_executable(renderer_lab main.cpp
         renderer/include/renderer.h
         shapes/src/triangle.cpp
         shapes/include/triangle.h
+        renderer/include/Context.h
 )
 
 target_link_libraries(renderer_lab PRIVATE glm::glm)

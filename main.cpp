@@ -13,28 +13,68 @@
 
 int main()
 {
-    int imageWidth = 3840;
-    int imageHeight = 2160;
+    int imageWidth = 1920;
+    int imageHeight = 1080;
 
     std::unique_ptr<Image> image = std::make_unique<Image>(imageWidth, imageHeight);
 
-    Vector2 center(0.5, 0.5);
+    Vector2 center(
+        imageWidth * 0.5f,
+        imageHeight * 0.5f
+    );
 
-    RadialGradient radial(Pixel(0.42, 0.85, 0.13), Pixel(0.81, 0.18, 0.4352), center, 1.0);
-    std::unique_ptr<Circle> circle = std::make_unique<Circle>(1, center, &radial);
+    RadialGradient radial(
+        Pixel(0.42, 0.85, 0.13),
+        Pixel(0.81, 0.18, 0.4352),
+        center,
+        std::min(imageWidth, imageHeight) * 0.5f
+    );
 
-    VerticalGradient vertical(Pixel(0.917, 0.75, 0.2), Pixel(0.7851, 0.203, 0.9179), imageHeight);
-    std::unique_ptr<Background> background = std::make_unique<Background>(&vertical);
+    std::unique_ptr<Circle> circle =
+        std::make_unique<Circle>(
+            std::min(imageWidth, imageHeight) * 0.5f,
+            center,
+            &radial
+        );
 
-    HorizontalGradient horizontal(Pixel(0, 1, 0), Pixel(0, 0, 1), imageHeight);
-    std::unique_ptr<LineDDA> lineDDA = std::make_unique<LineDDA>(0.01, Vector2(-1, -1), Vector2(1, 1), &horizontal);
+    VerticalGradient vertical(
+        Pixel(0.917, 0.75, 0.2),
+        Pixel(0.7851, 0.203, 0.9179),
+        imageHeight
+    );
 
+    std::unique_ptr<Background> background =
+        std::make_unique<Background>(&vertical);
 
-    std::unique_ptr<Triangle> triangle = std::make_unique<Triangle>(Vector2(0, -0.2), Vector2(0.2, 0.2), Vector2(-0.2, 0.2), &vertical);
+    HorizontalGradient horizontal(
+        Pixel(0, 1, 0),
+        Pixel(0, 0, 1),
+        imageWidth
+    );
+
+    std::unique_ptr<LineDDA> lineDDA =
+        std::make_unique<LineDDA>(
+            1.0f,
+            Vector2(0, 0),
+            Vector2(imageWidth, imageHeight),
+            &horizontal
+        );
+
+    Vector2 c(imageWidth * 0.5f, imageHeight * 0.5f);
+    float s = 0.2f;
+
+    std::unique_ptr<Triangle> triangle =
+        std::make_unique<Triangle>(
+            Vector2(c.x(), c.y() - s * imageHeight),
+            Vector2(c.x() + s * imageWidth, c.y() + s * imageHeight),
+            Vector2(c.x() - s * imageWidth, c.y() + s * imageHeight),
+            &vertical
+        );
+
 
     std::vector<const Drawable*> shapes;
     // shapes.push_back(background.get());
-    // shapes.push_back(circle.get());
+    shapes.push_back(circle.get());
     //shapes.push_back(lineDDA.get());
     shapes.push_back(triangle.get());
 

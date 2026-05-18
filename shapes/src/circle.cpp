@@ -1,12 +1,15 @@
 #include "../include/circle.h"
 
-std::optional<Pixel> Circle::Apply(const Vector2& ndc, float aspectRatio) const
+void Circle::Apply(const Context* context) const
 {
-    Vector2 correctedPoint(ndc.x() * aspectRatio, ndc.y());
-    Vector2 correctedCenter(_center.x() * aspectRatio, _center.y());
+    const Image* image = context->GetImage();
 
-    if ((correctedCenter - correctedPoint).LengthSquared() <= _radius * _radius)
-        return _colorProvider->GetColor(correctedPoint.x(), correctedPoint.y());
-
-    return std::nullopt;
+    for (int y = static_cast<int>(_center.y() - _radius); y <= _center.y() + _radius; y++)
+    {
+        for (int x = static_cast<int>(_center.x() - _radius); x <= _center.x() + _radius; ++x)
+        {
+            if ((_center - Vector2(x, y)).LengthSquared() <= _radius * _radius)
+                image->SetPixel(x, y, _colorProvider->GetColor(x, y));
+        }
+    }
 }

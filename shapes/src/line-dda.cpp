@@ -1,11 +1,13 @@
 #include "../include/line-dda.h"
 
-std::optional<Pixel> LineDDA::Apply(const Vector2& ndc, float aspectRatio) const
-{
-    if (IsPointBelonging(ndc, aspectRatio))
-        return _colorProvider->GetColor(ndc.x(), ndc.y());
+#include <optional>
 
-    return std::nullopt;
+void LineDDA::Apply(const Context* context) const
+{
+    // if (IsPointBelonging(ndc, aspectRatio))
+    //     return _colorProvider->GetColor(ndc.x(), ndc.y());
+    //
+    // return std::nullopt;
 }
 
 bool LineDDA::IsPointBelonging(const Vector2& ndc, float aspectRatio) const

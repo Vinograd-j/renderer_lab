@@ -15,6 +15,6 @@ public:
 
 public:
 
-    Pixel GetColor(float nx, float ny) const override;
+    Pixel GetColor(int x, int y) const override;
 
 };

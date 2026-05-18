@@ -2,9 +2,9 @@
 
 #include <cmath>
 
-Pixel HorizontalGradient::GetColor(float nx, float ny) const
+Pixel HorizontalGradient::GetColor(int x, int y) const
 {
-    double t = (nx + 1.0) * 0.5;
+    double t = static_cast<double>(y) / (_imageWidth - 1);
 
     t = std::pow(t, 2);
 

@@ -2,10 +2,10 @@
 
 #include <cmath>
 
-Pixel RadialGradient::GetColor(float nx, float ny) const
+Pixel RadialGradient::GetColor(int x, int y) const
 {
-    double dx = nx - _center.x();
-    double dy = ny - _center.y();
+    double dx = x - _center.x();
+    double dy = y - _center.y();
 
     double dist = std::sqrt(dx * dx + dy * dy);
 

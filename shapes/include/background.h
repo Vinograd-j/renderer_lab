@@ -1,7 +1,8 @@
 #pragma once
-#include "drawable.h"
 
-class ColorProvider;
+#include "drawable.h"
+#include "../../material/gradient-colors/include/color-provider.h"
+#include "../../renderer/include/context.h"
 
 class Background : public Drawable
 {
@@ -16,6 +17,6 @@ public:
 
 public:
 
-    std::optional<Pixel> Apply(const Vector2& ndc, float aspectRatio) const override;
+    void Apply(const Context* context) const override;
 
 };

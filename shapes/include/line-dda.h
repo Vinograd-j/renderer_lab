@@ -26,8 +26,7 @@ public:
                                                         _colorProvider(colorProvider)   {}
 
 public:
-
-    std::optional<Pixel> Apply(const Vector2& ndc, float aspectRatio) const override;
+    void Apply(const Context* context) const override;
 
 private:
 

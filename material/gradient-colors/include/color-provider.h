@@ -7,7 +7,7 @@ class ColorProvider
 
 public:
 
-    virtual Pixel GetColor(float nx, float ny) const = 0;
+    virtual Pixel GetColor(int x, int y) const = 0;
 
     virtual ~ColorProvider() = default;
 

@@ -1,23 +1,47 @@
 #include "../include/triangle.h"
 
+#include <algorithm>
+#include <cmath>
+#include <optional>
+
 #include "../../math/include/vector3.h"
 
-std::optional<Pixel> Triangle::Apply(const Vector2& ndc, float aspectRatio) const
+void Triangle::Apply(const Context* context) const
 {
-    auto ab = _a + _b;
-    auto ac = _a + _c;
-    auto pa = ndc + _a;
+    const Image* image = context->GetImage();
 
-    auto crossed = Cross(Vector3(ab.x(), ac.x(), pa.x()), Vector3(ab.x(), ac.y(), pa.x()));
+    int minX = std::floor(std::min({_a.x(), _b.x(), _c.x()}));
+    int maxX = std::ceil(std::max({_a.x(), _b.x(), _c.x()}));
+    int minY = std::floor(std::min({_a.y(), _b.y(), _c.y()}));
+    int maxY = std::ceil(std::max({_a.y(), _b.y(), _c.y()}));
 
-    auto uv1 = crossed / crossed.z();
+    minX = std::clamp(minX, 0, image->GetWidth() - 1);
+    maxX = std::clamp(maxX, 0, image->GetWidth() - 1);
+    minY = std::clamp(minY, 0, image->GetHeight() - 1);
+    maxY = std::clamp(maxY, 0, image->GetHeight() - 1);
 
-    auto f = 1 - crossed.x() - crossed.y();
-    auto u = crossed.x();
-    auto v = crossed.y();
+    for (int y = minY; y <= maxY; ++y)
+    {
+        for (int x = minX; x <= maxX; ++x)
+        {
 
-    if (f + u + v == 1 && f >= 0 && u >= 0 && v >= 0)
-        return std::optional<Pixel>(_colorProvider->GetColor(ndc.x(), ndc.y()));
+            auto ab = _b - _a;
+            auto ac = _c - _a;
+            auto pa = _a - Vector2(x, y);
 
-    return std::nullopt;
+            auto crossed = Cross(Vector3(ab.x(), ac.x(), pa.x()), Vector3(ab.y(), ac.y(), pa.y()));
+
+            if (std::abs(crossed.z()) < 1e-8)
+                return;
+
+            auto uv1 = crossed / crossed.z();
+
+            auto f = 1 - uv1.x() - uv1.y();
+            auto u = uv1.x();
+            auto v = uv1.y();
+
+            if (f >= 0 && u >= 0 && v >= 0)
+                image->SetPixel(x, y, _colorProvider->GetColor(x, y));
+        }
+    }
 }

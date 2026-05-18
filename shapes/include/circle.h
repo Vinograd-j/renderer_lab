@@ -5,7 +5,7 @@
 #include "../../material/gradient-colors/include/color-provider.h"
 #include "../../math/include/vector2.h"
 
-class Circle : Drawable
+class Circle : public Drawable
 {
 
 private:
@@ -13,7 +13,6 @@ private:
     float _radius;
 
     Vector2 _center;
-
 
     const ColorProvider* _colorProvider;
 
@@ -23,6 +22,6 @@ public:
 
 public:
 
-    void Draw(const Image& image) const override;
+    std::optional<Pixel> Apply(const Vector2& ndc, float aspectRatio) const override;
 
 };

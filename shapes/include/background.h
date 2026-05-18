@@ -3,7 +3,7 @@
 
 class ColorProvider;
 
-class Background : Drawable
+class Background : public Drawable
 {
 
 private:
@@ -16,6 +16,6 @@ public:
 
 public:
 
-    void Draw(const Image& image) const override;
+    std::optional<Pixel> Apply(const Vector2& ndc, float aspectRatio) const override;
 
 };

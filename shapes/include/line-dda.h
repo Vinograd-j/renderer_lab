@@ -3,12 +3,12 @@
 #include "../../material/gradient-colors/include/color-provider.h"
 #include "../../math/include/vector2.h"
 
-class LineDDA : Drawable
+class LineDDA : public Drawable
 {
 
 private:
 
-    int _thickness;
+    float _thickness;
 
     Vector2 _startPoint;
 
@@ -19,11 +19,18 @@ private:
 
 public:
 
-    explicit LineDDA(int thickness, const Vector2& start_point, const Vector2& end_point, const ColorProvider* colorProvider) : _thickness(thickness), _startPoint(start_point), _endPoint(end_point),
-    _colorProvider(colorProvider)   {}
+    explicit LineDDA(float thickness, const Vector2& start_point, const Vector2& end_point, const ColorProvider* colorProvider) :
+                                                        _thickness(thickness),
+                                                        _startPoint(start_point),
+                                                        _endPoint(end_point),
+                                                        _colorProvider(colorProvider)   {}
 
 public:
 
-    void Draw(const Image& image) const override;
+    std::optional<Pixel> Apply(const Vector2& ndc, float aspectRatio) const override;
+
+private:
+
+    bool IsPointBelonging(const Vector2& ndc, float aspectRatio) const;
 
 };

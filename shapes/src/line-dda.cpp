@@ -1,45 +1,31 @@
 #include "../include/line-dda.h"
 
-#include <cmath>
-
-void LineDDA::Draw(const Image& image) const
+std::optional<Pixel> LineDDA::Apply(const Vector2& ndc, float aspectRatio) const
 {
-    double xStart = _startPoint.x();
-    double yStart = _startPoint.y();
+    if (IsPointBelonging(ndc, aspectRatio))
+        return _colorProvider->GetColor(ndc.x(), ndc.y());
 
-    double xEnd = _endPoint.x();
-    double yEnd = _endPoint.y();
+    return std::nullopt;
+}
 
-    double dx = xEnd - xStart;
-    double dy = yEnd - yStart;
+bool LineDDA::IsPointBelonging(const Vector2& ndc, float aspectRatio) const
+{
+    Vector2 ab = _endPoint - _startPoint;
+    Vector2 ac = ndc - _startPoint;
 
-    int l = (int)std::max(std::abs(dx) * image.GetWidth(),
-                          std::abs(dy) * image.GetHeight());
+    auto t = Dot(ac, ab) / ab.LengthSquared();
 
-    if (l <= 0) l = 1;
+    if (t < 0 || t > 1) return false;
 
-    double Xinc = dx / l;
-    double Yinc = dy / l;
+    auto d = _startPoint + ab * t;
 
-    double x = xStart;
-    double y = yStart;
+    Vector2 corrected(
+        (d.x() - ndc.x()) * aspectRatio,
+        d.y() - ndc.y()
+    );
 
-    int radius = _thickness / 2;
+    if ((corrected).Length() <= _thickness) return true;
 
-    for (int i = 0; i <= l; i++)
-    {
-        int xPix = (int)std::round((x + 1.0) * 0.5 * (image.GetWidth() - 1));
-        int yPix = (int)std::round((y + 1.0) * 0.5 * (image.GetHeight() - 1));
+    return false;
 
-        for (int oy = -radius; oy <= radius; oy++)
-        {
-            for (int ox = -radius; ox <= radius; ox++)
-            {
-                image.SetPixel(xPix + ox, yPix + oy, _colorProvider->GetColor(x, y));
-            }
-        }
-
-        x += Xinc;
-        y += Yinc;
-    }
 }

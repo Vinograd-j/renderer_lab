@@ -34,7 +34,8 @@ int main()
         std::make_unique<Circle>(
             std::min(imageWidth, imageHeight) * 0.5f,
             center,
-            &radial
+            &radial,
+            64
         );
 
     VerticalGradient vertical(
@@ -43,14 +44,15 @@ int main()
         imageHeight
     );
 
-    std::unique_ptr<Background> background =
-        std::make_unique<Background>(&vertical);
-
     HorizontalGradient horizontal(
         Pixel(0, 1, 0),
         Pixel(0, 0, 1),
         imageWidth
     );
+
+    std::unique_ptr<Background> background =
+        std::make_unique<Background>(&horizontal);
+
 
     std::unique_ptr<LineDDA> lineDDA =
         std::make_unique<LineDDA>(
@@ -73,10 +75,10 @@ int main()
 
 
     std::vector<const Drawable*> shapes;
-    // shapes.push_back(background.get());
+    //shapes.push_back(background.get());
     shapes.push_back(circle.get());
     //shapes.push_back(lineDDA.get());
-    shapes.push_back(triangle.get());
+    //shapes.push_back(triangle.get());
 
 
     Context context(image.get());

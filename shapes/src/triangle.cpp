@@ -20,14 +20,14 @@ void Triangle::Apply(const Context* context) const
     minY = std::clamp(minY, 0, image->GetHeight() - 1);
     maxY = std::clamp(maxY, 0, image->GetHeight() - 1);
 
+    auto ab = _b._position - _a._position;
+    auto ac = _c._position - _a._position;
+
     for (int y = minY; y <= maxY; ++y)
     {
         for (int x = minX; x <= maxX; ++x)
         {
-
-            auto ab = _b - _a;
-            auto ac = _c - _a;
-            auto pa = _a - Vector2(x, y);
+            auto pa = _a._position - Vector2(x, y);
 
             auto crossed = Cross(Vector3(ab.x(), ac.x(), pa.x()), Vector3(ab.y(), ac.y(), pa.y()));
 
@@ -41,7 +41,15 @@ void Triangle::Apply(const Context* context) const
             auto v = uv1.y();
 
             if (f >= 0 && u >= 0 && v >= 0)
-                image->SetPixel(x, y, _colorProvider->GetColor(x, y));
+            {
+                Pixel col(
+                f * _a._color.r + u * _b._color.r + v * _c._color.r,
+                f * _a._color.g + u * _b._color.g + v * _c._color.g,
+                f * _a._color.b + u * _b._color.b + v * _c._color.b
+                );
+
+                image->SetPixelDepth(x, y, _z, col);
+            }
         }
     }
 }

@@ -10,7 +10,7 @@ void Background::Apply(const Context* context) const
     {
         for (int x = 0; x < image->GetWidth(); ++x)
         {
-            image->SetPixel(x, y, _colorProvider->GetColor(x, y));
+            image->SetPixelDepth(x, y, 1, _colorProvider->GetColor(x, y));
         }
     }
 }

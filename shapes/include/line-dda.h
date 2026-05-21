@@ -26,6 +26,7 @@ public:
                                                         _colorProvider(colorProvider)   {}
 
 public:
+
     void Apply(const Context* context) const override;
 
 private:

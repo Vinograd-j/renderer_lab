@@ -17,6 +17,8 @@ private:
 
     Pixel** _pixels;
 
+    float** _depth;
+
 public:
 
     explicit Image(int width, int height);
@@ -25,14 +27,20 @@ public:
 
 public:
 
-    void SetPixel(int x, int y, const Pixel& color) const;
-
     void SavePPM(const std::string& fileName) const;
+
+    void SetPixelDepth(int x, int y, float z, const Pixel& pixel) const;
+
+    void ClearDepthBuffer(float value) const;
 
 public:
 
     int GetWidth() const { return _width; }
 
     int GetHeight() const { return _height; }
+
+private:
+
+    void SetPixel(int x, int y, const Pixel& color) const;
 
 };

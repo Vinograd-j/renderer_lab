@@ -35,7 +35,8 @@ int main()
             std::min(imageWidth, imageHeight) * 0.5f,
             center,
             &radial,
-            64
+            64,
+            0.7
         );
 
     VerticalGradient vertical(
@@ -45,7 +46,7 @@ int main()
     );
 
     HorizontalGradient horizontal(
-        Pixel(0, 1, 0),
+        Pixel(0, 1, 1),
         Pixel(0, 0, 1),
         imageWidth
     );
@@ -65,20 +66,32 @@ int main()
     Vector2 c(imageWidth * 0.5f, imageHeight * 0.5f);
     float s = 0.2f;
 
-    std::unique_ptr<Triangle> triangle =
+    std::unique_ptr<Triangle> triangle1 =
         std::make_unique<Triangle>(
-            Vector2(c.x(), c.y() - s * imageHeight),
-            Vector2(c.x() + s * imageWidth, c.y() + s * imageHeight),
-            Vector2(c.x() - s * imageWidth, c.y() + s * imageHeight),
+            Vertex(Vector2(c.x(), c.y() - s * imageHeight), Pixel(1, 0, 0)),
+            Vertex(Vector2(c.x() + s * imageWidth, c.y() + s * imageHeight), Pixel(0, 1, 0)),
+            Vertex(Vector2(c.x() - s * imageWidth, c.y() + s * imageHeight), Pixel(0, 0, 1)),
+            0.6,
             &vertical
         );
 
+    // std::unique_ptr<Triangle> triangle2 =
+    //     std::make_unique<Triangle>(
+    //         Vector2(c.x() - 300, c.y() - s * imageHeight - 300),
+    //         Vector2(c.x() + s * imageWidth - 300, c.y() + s * imageHeight -300 ),
+    //         Vector2(c.x() - s * imageWidth - 200, c.y() + s * imageHeight - 200),
+    //         0.5,
+    //         &vertical
+    //     );
+
 
     std::vector<const Drawable*> shapes;
-    //shapes.push_back(background.get());
-    shapes.push_back(circle.get());
     //shapes.push_back(lineDDA.get());
-    //shapes.push_back(triangle.get());
+    //shapes.push_back(triangle1.get());
+    shapes.push_back(circle.get());
+    //shapes.push_back(triangle2.get());
+
+    //shapes.push_back(background.get());
 
 
     Context context(image.get());

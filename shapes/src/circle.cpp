@@ -26,7 +26,7 @@ void Circle::Apply(const Context* context) const
     for (int i = 0; i < _segmentsCount; ++i)
     {
         int next = (i + 1) % _segmentsCount;
-        triangles.emplace_back(_center, points[i], points[next], &color);
+        triangles.emplace_back(Vertex(_center, Pixel(1,1,1)), Vertex(points[i], Pixel(0,0,1)), Vertex(points[next], Pixel(0,0,1)), _z, &color);
     }
 
     for (const auto& triangle : triangles)

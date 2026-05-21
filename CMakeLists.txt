@@ -34,6 +34,7 @@ add_executable(renderer_lab main.cpp
         shapes/src/triangle.cpp
         shapes/include/triangle.h
         renderer/include/Context.h
+        shapes/include/Vertex.h
 )
 
 target_link_libraries(renderer_lab PRIVATE glm::glm)
